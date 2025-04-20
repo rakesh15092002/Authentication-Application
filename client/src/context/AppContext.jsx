@@ -9,7 +9,7 @@ export const AppContext = createContext();
 axios.defaults.withCredentials = true;
 
 export const AppContextProvider = (props)=>{
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    const backendUrl = "https://authentication-application-2.onrender.com"
     console.log(backendUrl)
     const [isLoggedin ,setIsLoggedin] = useState(false);
     const [userData ,setUserData] = useState(false);
