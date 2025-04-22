@@ -16,7 +16,7 @@ app.use(cookieParser());
 
 // CORS Configuration with credentials enabled
 const corsOptions = {
-  origin: "https://authentication-application-3.onrender.com/",      // Only allow your frontend origin
+  origin: "https://authentication-application-3.onrender.com",      // Only allow your frontend origin
   credentials: true,        // Allow credentials like cookies
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow these methods
   allowedHeaders: ['Content-Type', 'Authorization'],   // Allow these headers
