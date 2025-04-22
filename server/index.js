@@ -15,7 +15,7 @@ connectDB();
 app.use(express.json());
 app.use(cookieParser());
 
-const allowedOrigins = [process.env.FRONTEND_URL];
+const allowedOrigins = process.env.FRONTEND_URL;
 
 const corsOptions = {
   origin: allowedOrigins,
