@@ -15,12 +15,23 @@ app.use(express.json());
 app.use(cookieParser());
 
 // CORS Configuration with credentials enabled
+const allowedOrigins = [
+  "https://authentication-application-3.onrender.com"
+];
+
 const corsOptions = {
-  origin: "https://authentication-application-3.onrender.com",      // Only allow your frontend origin
-  credentials: true,        // Allow credentials like cookies
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow these methods
-  allowedHeaders: ['Content-Type', 'Authorization'],   // Allow these headers
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin.replace(/\/$/, ""))) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
+
 
 app.use(cors(corsOptions));  // Apply the CORS middleware globally
 
