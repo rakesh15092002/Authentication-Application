@@ -11,15 +11,12 @@ const app = express();
 const port = process.env.PORT || 4000;
 connectDB();
 
-// Set the frontend URL from environment variable (you can change this to your frontend URL)
-const frontendUrl = process.env.FRONTEND_URL || 'https://authentication-rakesh-app.vercel.app';
-
 app.use(express.json());
 app.use(cookieParser());
 
 // CORS Configuration with credentials enabled
 const corsOptions = {
-  origin: "http://localhost:5173",      // Only allow your frontend origin
+  // origin: "http://localhost:5173",      // Only allow your frontend origin
   credentials: true,        // Allow credentials like cookies
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow these methods
   allowedHeaders: ['Content-Type', 'Authorization'],   // Allow these headers
