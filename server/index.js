@@ -7,18 +7,21 @@ import authRouter from './routes/authRoutes.js';
 import userRouter from './routes/userRoute.js';
 
 const app = express();
-
 const port = process.env.PORT || 4000;
+
+// Connect to MongoDB
 connectDB();
 
+// Middleware for parsing
 app.use(express.json());
 app.use(cookieParser());
 
-// CORS Configuration with credentials enabled
+// Allowed frontend origins
 const allowedOrigins = [
   "https://authentication-application-3.onrender.com"
 ];
 
+// CORS Configuration
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin.replace(/\/$/, ""))) {
@@ -32,14 +35,18 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
+// Apply CORS middleware
+app.use(cors(corsOptions));
 
-app.use(cors(corsOptions));  // Apply the CORS middleware globally
+// Handle preflight (OPTIONS) requests
+app.options('*', cors(corsOptions));
 
-// API Endpoints
+// Routes
 app.get('/', (req, res) => res.send("API Working"));
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 
+// Start server
 app.listen(port, () => console.log(`Server started on PORT: ${port}`));
 
 export default app;
