@@ -6,34 +6,32 @@ import connectDB from './config/mongodb.js';
 import authRouter from './routes/authRoutes.js';
 import userRouter from './routes/userRoute.js';
 
-
-
 const app = express();
 
-
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4000;
 connectDB();
+
+// Set the frontend URL from environment variable (you can change this to your frontend URL)
+const frontendUrl = process.env.FRONTEND_URL || 'https://authentication-rakesh-app.vercel.app';
 
 app.use(express.json());
 app.use(cookieParser());
 
-app.options('*', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://authentication-rakesh-app.vercel.app'); // Update with your frontend URL
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.sendStatus(204);
-});
+// CORS Configuration with credentials enabled
+const corsOptions = {
+  origin: "http://localhost:5173",      // Only allow your frontend origin
+  credentials: true,        // Allow credentials like cookies
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow these methods
+  allowedHeaders: ['Content-Type', 'Authorization'],   // Allow these headers
+};
 
-app.use(cors());
+app.use(cors(corsOptions));  // Apply the CORS middleware globally
 
-// api end points
-app.get('/',(req,res) => res.send("API Working"));
-app.use('/api/auth',authRouter);
-app.use('/api/user',userRouter)
-
+// API Endpoints
+app.get('/', (req, res) => res.send("API Working"));
+app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
 
 app.listen(port, () => console.log(`Server started on PORT: ${port}`));
-
 
 export default app;
