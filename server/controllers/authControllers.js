@@ -45,7 +45,7 @@ export const register = async (req, res) => {
         const mailOptions = {
             from: process.env.SENDER_EMAIL,
             to: email,
-            subject: 'Welcom to Authentication App Powerded by Rakesh Maurya gutfufuiyg',
+            subject: 'Welcom to Authentication App Powerded by xyz',
             text: `welcome to authentication app. your account has been created with email id:${email}`
         }
         await transporter.sendMail(mailOptions);
@@ -133,7 +133,7 @@ export const sendVerifyOtp = async (req, res) => {
         const mailOption = {
             from: process.env.SENDER_EMAIL,
             to: user.email,
-            subject: 'Account Verification OTP Sending by Rakesh Maurya ',
+            subject: 'Account Verification OTP Sending by xyz ',
             // text: `Your OTP is ${otp}. Verify your account using this OTP.`,
             html:EMAIL_VERIFY_TEMPLATE.replace('{{otp}}', otp).replace('{{email}}', user.email)
         }
@@ -222,7 +222,7 @@ export const sendResetOTP = async (req,res)=>{
         const mailOption = {
             from: process.env.SENDER_EMAIL,
             to: user.email,
-            subject: 'Password Reset OTP sending by Rakesh Maurya',
+            subject: 'Password Reset OTP sending by xyz',
             // text: `Your OTP for resettng your password is ${otp}.
             // Use this OTP to proceed with restting our password.`
             html:PASSWORD_RESET_TEMPLATE.replace('{{email}}',user.email).replace('{{otp}}',otp)
